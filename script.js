@@ -22,7 +22,7 @@ const gameboard = (() => {
     }
 
     return {
-        createboard: createBoard(),
+        createBoard,
     };
 })();
 
