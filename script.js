@@ -23,7 +23,6 @@ const player2 = Player('Katie', 'O');
 
 const gameboard = (() => {
     const board = ['', '', '', '', '', '', '', '', ''];
-    const numberClass = ['one', 'two' ,'three', 'one', 'two' ,'three', 'one', 'two' ,'three'];
     
     function createBoard() {
         for (i = 0; i < board.length; i++) {
@@ -44,8 +43,10 @@ const gameboard = (() => {
         } else {
             return;
         }
-
-        checkWinner.condition();
+        
+        if(round => 5) {
+            checkWinner.condition();
+        }
     }
     
     createBoard()
@@ -79,14 +80,11 @@ const checkWinner = (() => {
     
         // Starting from the round players are able to create their first possible 3-in-a-row
         // We will start to check for win conditions
-        if(round => 5) {
-            for(i = 0; i < allConditions.length; i++) {
-                if (allConditions[i].every(checkPlayerWin)) {
-                    console.log('it works');
-                }
+        for(i = 0; i < allConditions.length; i++) {
+            if (allConditions[i].every(checkPlayerWin)) {
+                console.log('it works');
             }
         }
-
     }
 
     function checkPlayerWin(check) {
