@@ -5,12 +5,14 @@
 // Module to encapsulate just the gameboard code itself
 let round = 0;
 let start = 0;
+let winner = 0;
 
 const gboard = document.getElementById('gameboard');
 const startBtn = document.getElementById('start');
 const restartBtn = document.getElementById('restart');
 const player1Entry = document.getElementById('player1-name');
 const player2Entry = document.getElementById('player2-name');
+const roundText = document.getElementById('rounds');
 
 
 // Factory Function for creating players
@@ -40,12 +42,17 @@ const gameboard = (() => {
     }
 
     function setMark() {
-        if(this.innerHTML == '' && round % 2 != 0 && start == 1) {
+        if(round == 8 && !!(checkWinner.conditionCheck)) {
+            this.innerHTML = player1.mark;
+            roundText.innerHTML = `Rounds: ${round + 1} | It's a tie! Hit the restart button for another game`;
+        } else if(this.innerHTML == '' && round % 2 != 0 && start == 1 && winner == 0) {
             this.innerHTML = player1.mark;
             round++;
-        } else if(this.innerHTML == '' && round % 2 == 0 && start == 1) {
+            roundText.innerHTML = `Rounds: ${round} | Player 2: ${player2Entry.value}'s  turn`;
+        } else if(this.innerHTML == '' && round % 2 == 0 && start == 1 && winner == 0) {
             this.innerHTML = player2.mark;
             round++;
+            roundText.innerHTML = `Rounds: ${round} | Player 2: ${player1Entry.value}'s  turn`;
         } else {
             return;
         }
@@ -89,7 +96,17 @@ const checkWinner = (() => {
         // We will start to check for win conditions
         for(i = 0; i < allConditions.length; i++) {
             if (allConditions[i].every(checkPlayerWin)) {
-                console.log('it works');
+                if(round % 2 == 0 && round != 8) {
+                    roundText.innerHTML = `Player 1: ${player1Entry.value} got 3-In-A-Row! They win.`;
+                    winner++;
+                    return true;
+                } else if (round % 2 != 0 && round != 8) {
+                    roundText.innerHTML = `Player 2: ${player2Entry.value} got 3-In-A-Row! They win.`;
+                    winner++;
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
     }
@@ -111,7 +128,20 @@ const checkWinner = (() => {
 startBtn.addEventListener('click', () => {
     if(player1Entry.value.length >= 1 && player2Entry.value.length >= 1) {
         start++;
+        roundText.innerHTML = `Rounds: ${round} | Player 2: ${player2Entry.value}'s  turn`;
     } else {
         alert('Please enter a name for both Player 1 and Player 2');
     }
+});
+
+restartBtn.addEventListener('click', () => {
+    round = 0;
+    start = 0;
+    winner = 0;
+    player1Entry.value = '';
+    player2Entry.value = '';
+    roundText.innerHTML = 'Rounds:';
+    gameboard.squares.forEach(square => {
+        square.innerHTML = '';
+    });
 })

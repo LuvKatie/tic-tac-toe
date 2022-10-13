@@ -53,6 +53,8 @@ input[type="text"] {
 
     border-radius: 2px;
     border: 1px solid #9ecaed;
+
+    margin-top: 6px;
 }
 
 input[type="text"]:focus {
@@ -77,6 +79,7 @@ input[type="text"]:focus {
 
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     grid-column: 2 / 3;
+    grid-row: 1 / 2;
 
     align-self: center;
 
@@ -85,9 +88,19 @@ input[type="text"]:focus {
 }
 
 #gameboard-container {
+    position: relative;
+
     display: grid;
     grid-template: 1fr / repeat(4, 1fr);
 
     height: 100vh;
     width: 100%;
+}
+
+#rounds {
+    position: absolute;
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+
+    top: 120px;
 }
