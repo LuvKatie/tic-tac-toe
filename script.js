@@ -4,8 +4,14 @@
 
 // Module to encapsulate just the gameboard code itself
 let round = 0;
+let start = 0;
 
 const gboard = document.getElementById('gameboard');
+const startBtn = document.getElementById('start');
+const restartBtn = document.getElementById('restart');
+const player1Entry = document.getElementById('player1-name');
+const player2Entry = document.getElementById('player2-name');
+
 
 // Factory Function for creating players
 const Player = (name, mark) => {
@@ -34,10 +40,10 @@ const gameboard = (() => {
     }
 
     function setMark() {
-        if(this.innerHTML == '' && round % 2 != 0) {
+        if(this.innerHTML == '' && round % 2 != 0 && start == 1) {
             this.innerHTML = player1.mark;
             round++;
-        } else if(this.innerHTML == '' && round % 2 == 0) {
+        } else if(this.innerHTML == '' && round % 2 == 0 && start == 1) {
             this.innerHTML = player2.mark;
             round++;
         } else {
@@ -45,21 +51,22 @@ const gameboard = (() => {
         }
         
         if(round => 5) {
-            checkWinner.condition();
+            checkWinner.conditionCheck();
         }
     }
     
-    createBoard()
+    createBoard();
     const squares = document.querySelectorAll('.square');
-    
+
     return {
+        createBoard,
         squares,
     };
 })();
 
 const checkWinner = (() => {
 
-    function condition() {
+    function conditionCheck() {
         let square = gameboard.squares;
     
         // Horizontal 3-in-a-row
@@ -96,7 +103,15 @@ const checkWinner = (() => {
     }
 
     return {
-        condition,
+        conditionCheck,
     }
 
 })();
+
+startBtn.addEventListener('click', () => {
+    if(player1Entry.value.length >= 1 && player2Entry.value.length >= 1) {
+        start++;
+    } else {
+        alert('Please enter a name for both Player 1 and Player 2');
+    }
+})

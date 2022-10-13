@@ -8,6 +8,31 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
+    <div id="form-container">
+        <fieldset>
+            <legend>Start Menu</legend>
+    
+            <div>
+                <label for="player1-name">Player 1: </label>
+                <input type="text" name="player1-name" id="player1-name" placeholder="Tony" required minlength="1" maxlength="24">
+            </div>
+            
+            <div>
+                <label for="player2-name">Player 2: </label>
+                <input type="text" name="player2-name" id="player2-name" placeholder="Katie" required minlength="1" maxlength="24">
+            </div>
+    
+            <div>
+                <label for="start"></label>
+                <input type="submit" name="start" id="start" value="Start">
+            </div>
+            
+            <div>
+                <label for="restart"></label>
+                <input type="button" name="restart" id="restart" value="Restart">
+            </div>
+        </fieldset>
+    </div>
 
     <div id="gameboard-container">
         <div id="gameboard"></div>
