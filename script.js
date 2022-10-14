@@ -30,9 +30,9 @@ const player1 = Player('Tony', 'X');
 const player2 = Player('Katie', 'O');
 
 const gameboard = (() => {
-    const board = ['', '', '', '', '', '', '', '', ''];
+const board = ['', '', '', '', '', '', '', '', ''];
     
-    function createBoard() {
+function createBoard() {
         for (i = 0; i < board.length; i++) {
             const boardSquare = document.createElement('div');
             boardSquare.classList.add('square');
@@ -41,7 +41,7 @@ const gameboard = (() => {
         }
     }
 
-    function setMark() {
+function setMark() {
         if(round == 8 && !!(checkWinner.conditionCheck)) {
             this.innerHTML = player1.mark;
             roundText.innerHTML = `Rounds: ${round + 1} | It's a tie! Hit the restart button for another game`;
